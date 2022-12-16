@@ -38,3 +38,8 @@ if __name__ == '__main__':
         g2p.zh(input_file_path=input_path,
                output_file_path=output_path)
         
+    elif input_lang_code == 'bo':
+        # tokenization.bo(input_file_path=input_path,
+        #                 output_file_path=output_path)
+        g2p.bo(input_file_path=input_path,
+                output_file_path=output_path)
