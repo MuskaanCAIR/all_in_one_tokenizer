@@ -2,12 +2,13 @@ import sys
 import argparse
 import os
 
+from tools import tokenization,g2p
+
+
 if __name__ == '__main__':
 
     #------------------parser argument------------------
-    help_txt = 'language code:    "sh"-->shahmukhi| "ur"-->urdu| \
-                "zh"-->chinese| "bo"-->tibetan| \
-                "bn"-->bemgali| "sin"-->sinhala'
+    help_txt = 'language code:    "sh"-->shahmukhi| "ur"-->urdu| "zh"-->chinese| "bo"-->tibetan| "bn"-->bemgali| "sin"-->sinhala'
     parser = argparse.ArgumentParser(usage='main.py -l [lANG_CODE] -i [INPUT_FILE_PATH] -o [OUTPUT_FOLDER_PATH]')
     parser.add_argument('-l','--lang',metavar='\b',help=help_txt,required=True)
     parser.add_argument('-i','--input',metavar='\b',help='\tabsolute file path of input file',required=True)
@@ -24,7 +25,16 @@ if __name__ == '__main__':
     file_formats = ['docx','txt','pdf','html']
 
     arguments = sys.argv
+    input_path = arguments[4]
+    output_path = arguments[6]
     input_lang_code = arguments[2]
     if input_lang_code not in lang_codes:
         print("Incorrect Language Code!!\n")
         exit(0)
+
+    if input_lang_code == 'zh':
+        tokenization.zh(input_file_path=input_path,
+                        output_file_path=output_path)
+        g2p.zh(input_file_path=input_path,
+               output_file_path=output_path)
+        

@@ -8,6 +8,6 @@ def zh_preprocess(multi_corpus):
         for letters in multi_corpus:
             r = re.compile(r'[\u4e00-\u9fff]')
             if r.search(letters):
-                print (letters) 
+                # print (letters) 
                 f2.write(letters)
     return process_file_path
