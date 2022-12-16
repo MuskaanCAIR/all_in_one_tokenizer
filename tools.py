@@ -1,5 +1,5 @@
 import os
-from tibetan_bo.tib_g2p_model import tib_g2p
+from tibetan.tib_g2p_model import tib_g2p
 from chinese_zh.logograph_g2p_model.pipeline import zh_g2p
 from util import reading,writing
 import preprocess

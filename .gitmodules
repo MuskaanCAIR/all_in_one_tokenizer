@@ -1,0 +1,3 @@
+[submodule "tibetan"]
+	path = tibetan
+	url = https://github.com/MuskaanCAIR/tibetan.git
