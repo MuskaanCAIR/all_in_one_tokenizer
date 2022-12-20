@@ -8,11 +8,11 @@ from tools import tokenization,g2p
 if __name__ == '__main__':
 
     #------------------parser argument------------------
-    help_txt = 'language code:    "sh"-->shahmukhi| "ur"-->urdu| "zh"-->chinese| "bo"-->tibetan| "bn"-->bemgali| "sin"-->sinhala'
-    parser = argparse.ArgumentParser(usage='main.py -l [lANG_CODE] -i [INPUT_FILE_PATH] -o [OUTPUT_FOLDER_PATH]')
+    help_txt = 'language code:    "sh"-->shahmukhi| "ur"-->urdu| "zh"-->chinese| "bo"-->tibetan| "bn"-->bengali| "sin"-->sinhala'
+    parser = argparse.ArgumentParser(usage='main.py -l [LANG_CODE] -i [INPUT_FILE_PATH] -o [OUTPUT_FOLDER_PATH]')
     parser.add_argument('-l','--lang',metavar='\b',help=help_txt,required=True)
     parser.add_argument('-i','--input',metavar='\b',help='\tabsolute file path of input file',required=True)
-    parser.add_argument('-o','--output',metavar='\b',help='\toutput folder path',required=True)
+    parser.add_argument('-o','--output',metavar='\b',help='\toutput folder path')
     # parser.add_argument('-sh', '--shah', metavar='\b', help='shahmukhi')
     # parser.add_argument('-ur', '--urdu', metavar='\b', help='urdu')
     # parser.add_argument('-zh', '--zh', metavar='\b', help='chinese')
@@ -39,7 +39,13 @@ if __name__ == '__main__':
                output_file_path=output_path)
         
     elif input_lang_code == 'bo':
-        # tokenization.bo(input_file_path=input_path,
-        #                 output_file_path=output_path)
+        tokenization.bo(input_file_path=input_path,
+                        output_file_path=output_path)
         g2p.bo(input_file_path=input_path,
+                output_file_path=output_path)
+
+    elif input_lang_code == 'sh':
+        tokenization.shah(input_file_path=input_path,
+                        output_file_path=output_path)
+        g2p.shah(input_file_path=input_path,
                 output_file_path=output_path)

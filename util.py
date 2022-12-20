@@ -1,6 +1,8 @@
 #file contains all read and write methods 
 import pandas as pd
 import os
+
+
 class reading:
 
     def text_file_read(file_path):
@@ -49,5 +51,32 @@ class writing:
                     line = f'{phone[0]}\t\t\t\t{phone_str}\n'
                     f.write(line)
 
-        print("phones and syllable file generation complete !!!")
 
+    def phone_file_generate_sh(phone_list_hindi,
+                               phone_list_gur,
+                               hindi_file, 
+                               gur_file):
+
+        for i in range(4):
+            os.chdir('..')
+        print(os.getcwd())
+
+        #hindi  (tok,transliteration[0],ph_list_gur)
+        with open(hindi_file,'a') as f_hindi:
+            # for phone in phone_list_hindi:
+            if phone_list_hindi[1] == None:
+                f_hindi.write("")
+            else:
+                phone_str = '\t'.join(phone_list_hindi[2])
+                line = f'{phone_list_hindi[0]}\t\t\t{phone_list_hindi[1]}\t\t\t{phone_str}\n'
+                f_hindi.write(line)
+
+        #gurumukhi  (tok,transliteration[0],ph_list_gur)
+        with open(gur_file,'a') as f_gur:
+            # for phone in phone_list_gur:
+                if phone_list_gur[1] == None:
+                    f_gur.write("")
+                else:
+                    phone_str = '\t'.join(phone_list_gur[2])
+                    line = f'{phone_list_gur[0]}\t\t\t{phone_list_gur[1]}\t\t\t{phone_str}\n'
+                    f_gur.write(line)

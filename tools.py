@@ -1,9 +1,14 @@
 import os
 from tibetan.tib_g2p_model import tib_g2p
 from chinese_zh.logograph_g2p_model.pipeline import zh_g2p
+from sh_ur.tokenizers import tokenizer_tools
+from sh_ur.pad.pat_v4.pat.main import shahmukhiToHindi
 from util import reading,writing
 import preprocess
 import shutil
+import warnings
+warnings.simplefilter("ignore", ResourceWarning)
+
 
 class tokenization:
 
@@ -41,6 +46,40 @@ class tokenization:
                                     input_file=input_file_path,
                                     output_file=output_file_path)
 
+    #-----------------------shahmukhi-------------------
+    def shah(input_file_path, output_file_path):
+        print("working on tokenization !!!")
+        #read uncleaned data
+        uncleaned_data = reading.text_file_read(file_path=input_file_path)
+        #cleaning the data
+        cleaned_data_path = preprocess.sh_preprocess(uncleaned_data)
+        cleaned_data = reading.text_file_read(file_path=cleaned_data_path)
+
+        #tokenization
+        token = tokenizer_tools.spacy_tokenizer(cleaned_data)
+
+        #saving in .word file
+        writing.word_file_generate(tokens=token,
+                                    input_file=input_file_path,
+                                    output_file=output_file_path)
+    
+    #--------------------urdu---------------------------
+    def urdu(input_file_path, output_file_path):
+        print("working on tokenization !!!")
+        #read uncleaned data
+        uncleaned_data = reading.text_file_read(file_path=input_file_path)
+        #cleaning the data
+        cleaned_data_path = preprocess.ur_preprocess(uncleaned_data)
+        cleaned_data = reading.text_file_read(file_path=cleaned_data_path)
+
+        #tokenization
+        token = tokenizer_tools.spacy_tokenizer(cleaned_data)
+
+        #saving in .word file
+        writing.word_file_generate(tokens=token,
+                                    input_file=input_file_path,
+                                    output_file=output_file_path)
+
 
 class g2p:
 
@@ -66,7 +105,7 @@ class g2p:
                                     input_file = input_file_path, 
                                     output_file = output_file_path)
     
-    
+        print("phones file generation complete !!!")
     #--------------tibetan------------------------    
     def bo(input_file_path, output_file_path):
 
@@ -99,3 +138,64 @@ class g2p:
         writing.phone_file_generate(phone_list = g2p_list, 
                                     input_file = input_file_path, 
                                     output_file = output_file_path)
+
+        print("phones and syllable file generation complete !!!")
+    
+    
+    #-------------------shahmukhi---------------
+    def shah(input_file_path, output_file_path):
+
+        print("working on g2p !!!")
+        input_file_name = os.path.basename(input_file_path)
+        input_file_name = os.path.splitext(input_file_name)[0]
+        token_file_name = f'{output_file_path}/{input_file_name}.wrd'
+
+        hindi_phone_file = f'{output_file_path}/{input_file_name}_hi.phn'
+        gur_phone_file = f'{output_file_path}/{input_file_name}_gur.phn'
+
+        #reading tokens files
+        tokens = reading.text_file_read(token_file_name)
+        tokens = tokens.split('\n')
+
+        #G2P conversion
+        # g2p_list_hindi = list()
+        # g2p_list_gur = list()
+        
+        for tok in tokens:
+            print(tok)
+            if tok == None:
+                continue
+            try:
+                ph_list_hindi=[]
+                ph_list_gur=[]
+                os.chdir('sh_ur/pad/pat_v4/pat/')
+                #transliteration is a tuple ----> (gurumukhi_word, hindi_word)
+                transliteration = shahmukhiToHindi(tok)
+
+                #creating hindi phone list of the token
+                for phone in transliteration[1]:
+                    ph_list_hindi.append(phone)
+                #creating gurumukhi phone list of the token
+                for phone in transliteration[0]:
+                    ph_list_gur.append(phone)
+
+                print(transliteration,'\t\t',ph_list_hindi,'\t\t',ph_list_gur)
+                g2p_list_hindi = (tok,transliteration[1],ph_list_hindi)
+                g2p_list_gur = (tok,transliteration[0],ph_list_gur)
+                writing.phone_file_generate_sh(phone_list_hindi = g2p_list_hindi,
+                                    phone_list_gur = g2p_list_gur, 
+                                    hindi_file = hindi_phone_file, 
+                                    gur_file = gur_phone_file)
+            except IndexError:
+                for i in range(4):
+                    os.chdir('..')
+                print(os.getcwd())
+                print("encountered index error!")
+                continue
+
+        
+        # #saving in .phn file
+        # writing.phone_file_generate_sh(phone_list_hindi = g2p_list_hindi,
+        #                             phone_list_gur = g2p_list_gur, 
+        #                             hindi_file = hindi_phone_file, 
+        #                             gur_file = gur_phone_file)
