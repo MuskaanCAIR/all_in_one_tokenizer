@@ -26,12 +26,13 @@ if __name__ == '__main__':
 
     arguments = sys.argv
     input_path = arguments[4]
-    output_path = arguments[6]
+    try:
+        output_path = arguments[6]
+    except IndexError:
+        output_path = './'
     input_lang_code = arguments[2]
-    if input_lang_code not in lang_codes:
-        print("Incorrect Language Code!!\n")
-        exit(0)
 
+        
     if input_lang_code == 'zh':
         tokenization.zh(input_file_path=input_path,
                         output_file_path=output_path)
@@ -49,3 +50,32 @@ if __name__ == '__main__':
                         output_file_path=output_path)
         g2p.shah(input_file_path=input_path,
                 output_file_path=output_path)
+
+    elif input_lang_code == 'ur':
+        tokenization.shah(input_file_path=input_path,
+                        output_file_path=output_path)
+        g2p.shah(input_file_path=input_path,
+                output_file_path=output_path)
+        
+        input_file_name = os.path.basename(input_path)
+        input_file_name = os.path.splitext(input_file_name)[0]
+        gur_file_name = f'{output_path}/{input_file_name}_gur.phn'
+
+        os.remove(gur_file_name)
+        
+      
+    elif input_lang_code == 'bn':
+        tokenization.bangla(input_file_path=input_path,
+                            output_file_path=output_path)
+        g2p.bangla(input_file_path=input_path,
+                    output_file_path=output_path)
+
+    elif input_lang_code == 'sin':
+        tokenization.sinhala(input_file_path=input_path,
+                            output_file_path=output_path)
+        g2p.sinhala(input_file_path=input_path,
+                    output_file_path=output_path)
+
+    else:
+        print("Incorrect Language Code!!\n")
+        exit(0)

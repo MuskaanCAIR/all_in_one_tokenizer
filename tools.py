@@ -52,7 +52,7 @@ class tokenization:
         #read uncleaned data
         uncleaned_data = reading.text_file_read(file_path=input_file_path)
         #cleaning the data
-        cleaned_data_path = preprocess.sh_preprocess(uncleaned_data)
+        cleaned_data_path = preprocess.sh_ur_preprocess(uncleaned_data)
         cleaned_data = reading.text_file_read(file_path=cleaned_data_path)
 
         #tokenization
@@ -62,18 +62,35 @@ class tokenization:
         writing.word_file_generate(tokens=token,
                                     input_file=input_file_path,
                                     output_file=output_file_path)
-    
-    #--------------------urdu---------------------------
-    def urdu(input_file_path, output_file_path):
+                                
+                                
+    #-------------------------bangla-----------------------------------
+    def bangla(input_file_path, output_file_path):
         print("working on tokenization !!!")
         #read uncleaned data
         uncleaned_data = reading.text_file_read(file_path=input_file_path)
         #cleaning the data
-        cleaned_data_path = preprocess.ur_preprocess(uncleaned_data)
+        cleaned_data_path = preprocess.bangla_preprocess(uncleaned_data)
         cleaned_data = reading.text_file_read(file_path=cleaned_data_path)
 
         #tokenization
-        token = tokenizer_tools.spacy_tokenizer(cleaned_data)
+        token = cleaned_data.split(' ')
+
+        #saving in .word file
+        writing.word_file_generate(tokens=token,
+                                    input_file=input_file_path,
+                                    output_file=output_file_path)
+
+    def sinhala(input_file_path, output_file_path):
+        print("working on tokenization !!!")
+        #read uncleaned data
+        uncleaned_data = reading.text_file_read(file_path=input_file_path)
+        #cleaning the data
+        cleaned_data_path = preprocess.sinhala_preprocess(uncleaned_data)
+        cleaned_data = reading.text_file_read(file_path=cleaned_data_path)
+
+        #tokenization
+        token = cleaned_data.split(' ')
 
         #saving in .word file
         writing.word_file_generate(tokens=token,
@@ -199,3 +216,53 @@ class g2p:
         #                             phone_list_gur = g2p_list_gur, 
         #                             hindi_file = hindi_phone_file, 
         #                             gur_file = gur_phone_file)
+    
+
+    #---------------------------------bengali-----------------------------------
+    def bangla(input_file_path, output_file_path):
+
+        print("working on g2p !!!")
+
+        input_file_name = os.path.basename(input_file_path)
+        input_file_name = input_file_name.replace('.txt','.wrd') 
+        token_file_name = f'{output_file_path}/{input_file_name}'
+
+        tokens = reading.text_file_read(token_file_name)
+        tokens = tokens.split('\n')
+
+        g2p_list = list()
+
+        for tok in tokens:
+            ph_list = []
+            for letter in tok:
+                ph_list.append(letter)
+            g2p_list.append((tok,ph_list))
+
+        writing.phone_file_generate(phone_list = g2p_list,
+                                    input_file=input_file_path,
+                                    output_file=output_file_path)
+
+    
+    #------------------------------bengali--------------------------------
+    def sinhala(input_file_path, output_file_path):
+
+        print("working on g2p !!!")
+
+        input_file_name = os.path.basename(input_file_path)
+        input_file_name = input_file_name.replace('.txt','.wrd') 
+        token_file_name = f'{output_file_path}/{input_file_name}'
+
+        tokens = reading.text_file_read(token_file_name)
+        tokens = tokens.split('\n')
+
+        g2p_list = list()
+
+        for tok in tokens:
+            ph_list = []
+            for letter in tok:
+                ph_list.append(letter)
+            g2p_list.append((tok,ph_list))
+
+        writing.phone_file_generate(phone_list = g2p_list,
+                                    input_file=input_file_path,
+                                    output_file=output_file_path)

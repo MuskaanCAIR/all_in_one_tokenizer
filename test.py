@@ -1,6 +1,6 @@
 import re
 
-s = 'लिखतां सो'
+s = 'নারীদের'
 str = ''
 for l in s:
     str = str + '\t' + l   

@@ -47,7 +47,7 @@ class writing:
                 if phone[1] == None:
                     continue
                 else:
-                    phone_str = ' '.join(phone[1])
+                    phone_str = '\t'.join(phone[1])
                     line = f'{phone[0]}\t\t\t\t{phone_str}\n'
                     f.write(line)
 
