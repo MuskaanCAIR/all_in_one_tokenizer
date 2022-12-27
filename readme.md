@@ -6,7 +6,7 @@ This project constitues tokenization/word segmentation and g2p conversion tools 
 |----------|:------------:|:-----------------------:|
 |Chinese   | Jieba        | G2pM                    |
 |Tibetan   | Botok (Pybo) | THL                     |
-|Shahmukhi | Spacy        | Sangam (transliteraion) |
+|Shahmukhi | Spacy        | Sangam (transliteration)|
 |Urdu      | Spacy        | Sangam (transliteration)|
 |Bangla    | white space  | unicode                 |
 |Sinhala   | white space  | unicode                 |
@@ -19,5 +19,9 @@ This project constitues tokenization/word segmentation and g2p conversion tools 
 2. How to use the project
 3. Brief description about code flow and project arrangement
 
-# 
+# Introduction
+
+a. Tokenizers:\
+   1. Jieba: 
+   
 
