@@ -41,8 +41,8 @@ class writing:
 
         file_name = f'{output_file}/{os.path.basename(input_file)}'
         file_name = file_name.replace('.txt','.phn')
-        print(file_name)
-        with open(file_name,'w+') as f:
+        # print(file_name)
+        with open(file_name,'a+') as f:
             for phone in phone_list:
                 if phone[1] == None:
                     continue

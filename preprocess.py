@@ -7,7 +7,8 @@ def zh_preprocess(multi_corpus):
     with open(process_file_path,"w+") as f2:
         for letters in multi_corpus:
             r = re.compile(r'[\u4e00-\u9fff]')
-            if r.search(letters):
+            r1 = re.compile(r'\u0020')
+            if r.search(letters) or r1.search(letters):
                 # print (letters) 
                 f2.write(letters)
     return process_file_path
@@ -18,7 +19,8 @@ def bo_preprocess(multi_corpus):
     with open(process_file_path,"w+") as f2:
         for letters in multi_corpus:
             r = re.compile(r'[\u0f00-\u0fff]')
-            if r.search(letters):
+            r1 = re.compile(r'\u0020')
+            if r.search(letters) or r1.search(letters):
                 # print (letters) 
                 f2.write(letters)
     return process_file_path

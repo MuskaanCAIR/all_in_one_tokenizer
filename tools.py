@@ -117,7 +117,7 @@ class g2p:
             generated_g2p = zh_g2p.generate_g2p(tok)
             g2p_list.append((tok,generated_g2p))
 
-        #saving in .phn file
+            #saving in .phn file
         writing.phone_file_generate(phone_list = g2p_list, 
                                     input_file = input_file_path, 
                                     output_file = output_file_path)
@@ -151,7 +151,7 @@ class g2p:
                 line = f'{key}\t\t\t\t{value[0].replace(" ","")}\n'
                 f.write(line)
 
-        #saving in .phn file
+                #saving in .phn file
         writing.phone_file_generate(phone_list = g2p_list, 
                                     input_file = input_file_path, 
                                     output_file = output_file_path)
