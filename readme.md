@@ -14,10 +14,15 @@ This project constitues tokenization/word segmentation and g2p conversion tools 
 # How to use the tool
 
 After downloading the zip file, type the this command in the terminal
+
         python main.py -l [LANG_CODE] -i [INPUT_FILE_PATH] -o [OUTPUT_FOLDER_PATH]
+        
 where the following should be replaced with any one of the options:
+
 [LANG_CODE]: "sh"| "ur"| "zh"| "bo"| "bn"| "sin"
+
 [INPUT_FILE_PATH]: the path to your input unstructured text file
+
 [OUTPUT_FOLDER_PATH]: path to where you want your output files to be
 
 # Output
