@@ -11,17 +11,18 @@ This project constitues tokenization/word segmentation and g2p conversion tools 
 |Bangla    | white space  | unicode                 |
 |Sinhala   | white space  | unicode                 |
 
-# Table of Content
+# How to use the tool
 
-1. Introduction to different tools:
-    a. Tokenizers/ Word segmentation
-    b. Grapheme - to - phoneme 
-2. How to use the project
-3. Brief description about code flow and project arrangement
+After downloading the zip file, type the this command in the terminal
+        python main.py -l [LANG_CODE] -i [INPUT_FILE_PATH] -o [OUTPUT_FOLDER_PATH]
+where the following should be replaced with any one of the options:
+[LANG_CODE]: "sh"| "ur"| "zh"| "bo"| "bn"| "sin"
+[INPUT_FILE_PATH]: the path to your input unstructured text file
+[OUTPUT_FOLDER_PATH]: path to where you want your output files to be
 
-# Introduction
+# Output
 
-a. Tokenizers:\
-   1. Jieba: 
-   
+The tool returns two files:
+1. .wrd : containing tokenized words seperated by new line
+2. .phn : containing phonetic expansion of the above tokenized words seperated by tabs 
 
